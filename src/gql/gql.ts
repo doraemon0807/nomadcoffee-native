@@ -14,8 +14,11 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 const documents = {
     "\n  fragment UserFragment on User {\n    id\n    username\n    avatarURL\n    isFollowing\n    isMe\n  }\n": types.UserFragmentFragmentDoc,
+    "\n  fragment CategoryFragment on Category {\n    id\n    name\n    slug\n  }\n": types.CategoryFragmentFragmentDoc,
+    "\n  fragment PhotoFragment on CoffeeShopPhoto {\n    id\n    url\n  }\n": types.PhotoFragmentFragmentDoc,
     "\n  query me {\n    me {\n      profile {\n        ...UserFragment\n      }\n    }\n  }\n": types.MeDocument,
     "\n  mutation createAccount(\n    $username: String!\n    $email: String!\n    $name: String!\n    $location: String!\n    $password: String!\n    $githubUsername: String\n  ) {\n    createAccount(\n      username: $username\n      email: $email\n      name: $name\n      location: $location\n      password: $password\n      githubUsername: $githubUsername\n    ) {\n      ok\n      error\n    }\n  }\n": types.CreateAccountDocument,
+    "\n  query seeCoffeeShops($offset: Int) {\n    seeCoffeeShops(offset: $offset) {\n      id\n      name\n      user {\n        ...UserFragment\n      }\n      photos {\n        ...PhotoFragment\n      }\n      categories {\n        ...CategoryFragment\n      }\n    }\n  }\n": types.SeeCoffeeShopsDocument,
     "\n  mutation login($username: String!, $password: String!) {\n    login(username: $username, password: $password) {\n      ok\n      token\n      error\n    }\n  }\n": types.LoginDocument,
 };
 
@@ -40,11 +43,23 @@ export function graphql(source: "\n  fragment UserFragment on User {\n    id\n  
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "\n  fragment CategoryFragment on Category {\n    id\n    name\n    slug\n  }\n"): (typeof documents)["\n  fragment CategoryFragment on Category {\n    id\n    name\n    slug\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  fragment PhotoFragment on CoffeeShopPhoto {\n    id\n    url\n  }\n"): (typeof documents)["\n  fragment PhotoFragment on CoffeeShopPhoto {\n    id\n    url\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "\n  query me {\n    me {\n      profile {\n        ...UserFragment\n      }\n    }\n  }\n"): (typeof documents)["\n  query me {\n    me {\n      profile {\n        ...UserFragment\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation createAccount(\n    $username: String!\n    $email: String!\n    $name: String!\n    $location: String!\n    $password: String!\n    $githubUsername: String\n  ) {\n    createAccount(\n      username: $username\n      email: $email\n      name: $name\n      location: $location\n      password: $password\n      githubUsername: $githubUsername\n    ) {\n      ok\n      error\n    }\n  }\n"): (typeof documents)["\n  mutation createAccount(\n    $username: String!\n    $email: String!\n    $name: String!\n    $location: String!\n    $password: String!\n    $githubUsername: String\n  ) {\n    createAccount(\n      username: $username\n      email: $email\n      name: $name\n      location: $location\n      password: $password\n      githubUsername: $githubUsername\n    ) {\n      ok\n      error\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query seeCoffeeShops($offset: Int) {\n    seeCoffeeShops(offset: $offset) {\n      id\n      name\n      user {\n        ...UserFragment\n      }\n      photos {\n        ...PhotoFragment\n      }\n      categories {\n        ...CategoryFragment\n      }\n    }\n  }\n"): (typeof documents)["\n  query seeCoffeeShops($offset: Int) {\n    seeCoffeeShops(offset: $offset) {\n      id\n      name\n      user {\n        ...UserFragment\n      }\n      photos {\n        ...PhotoFragment\n      }\n      categories {\n        ...CategoryFragment\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -9,3 +9,18 @@ export const USER_FRAGMENT = graphql(`
     isMe
   }
 `);
+
+export const CATEGORY_FRAGMENT = graphql(`
+  fragment CategoryFragment on Category {
+    id
+    name
+    slug
+  }
+`);
+
+export const PHOTO_FRAGMENT = graphql(`
+  fragment PhotoFragment on CoffeeShopPhoto {
+    id
+    url
+  }
+`);

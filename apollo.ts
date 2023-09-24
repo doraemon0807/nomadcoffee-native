@@ -3,6 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setContext } from "@apollo/client/link/context";
 import { onError } from "@apollo/client/link/error";
 import { createUploadLink } from "apollo-upload-client";
+import { offsetLimitPagination } from "@apollo/client/utilities";
 
 export const isLoggedInVar = makeVar(false);
 export const tokenVar = makeVar<string | null>("");
@@ -35,7 +36,7 @@ const authLink = setContext((_, { headers }) => {
 
 //http link to upload files
 const uploadHttpLink = createUploadLink({
-  uri: "https://young-planets-go.loca.lt/graphql",
+  uri: "https://solid-months-cover.loca.lt/graphql",
 });
 
 //http link to display errors
@@ -51,7 +52,15 @@ const onErrorLink = onError(({ graphQLErrors, networkError }) => {
 //http links combined
 const httpLinks = authLink.concat(onErrorLink).concat(uploadHttpLink);
 
-export const cache = new InMemoryCache();
+export const cache = new InMemoryCache({
+  typePolicies: {
+    Query: {
+      fields: {
+        seeCoffeeShops: offsetLimitPagination(),
+      },
+    },
+  },
+});
 
 const client = new ApolloClient({
   link: httpLinks,
