@@ -20,6 +20,8 @@ const documents = {
     "\n  mutation createAccount(\n    $username: String!\n    $email: String!\n    $name: String!\n    $location: String!\n    $password: String!\n    $githubUsername: String\n  ) {\n    createAccount(\n      username: $username\n      email: $email\n      name: $name\n      location: $location\n      password: $password\n      githubUsername: $githubUsername\n    ) {\n      ok\n      error\n    }\n  }\n": types.CreateAccountDocument,
     "\n  query seeCoffeeShops($offset: Int) {\n    seeCoffeeShops(offset: $offset) {\n      id\n      name\n      user {\n        ...UserFragment\n      }\n      photos {\n        ...PhotoFragment\n      }\n      categories {\n        ...CategoryFragment\n      }\n    }\n  }\n": types.SeeCoffeeShopsDocument,
     "\n  mutation login($username: String!, $password: String!) {\n    login(username: $username, password: $password) {\n      ok\n      token\n      error\n    }\n  }\n": types.LoginDocument,
+    "\n  query searchCoffeeShops($keyword: String!, $offset: Int) {\n    searchCoffeeShops(keyword: $keyword, offset: $offset) {\n      id\n      photos {\n        id\n        url\n      }\n    }\n  }\n": types.SearchCoffeeShopsDocument,
+    "\n  query searchCategories($keyword: String!, $offset: Int) {\n    searchCategories(keyword: $keyword, offset: $offset) {\n      id\n      name\n      slug\n      totalShops\n    }\n  }\n": types.SearchCategoriesDocument,
 };
 
 /**
@@ -64,6 +66,14 @@ export function graphql(source: "\n  query seeCoffeeShops($offset: Int) {\n    s
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation login($username: String!, $password: String!) {\n    login(username: $username, password: $password) {\n      ok\n      token\n      error\n    }\n  }\n"): (typeof documents)["\n  mutation login($username: String!, $password: String!) {\n    login(username: $username, password: $password) {\n      ok\n      token\n      error\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query searchCoffeeShops($keyword: String!, $offset: Int) {\n    searchCoffeeShops(keyword: $keyword, offset: $offset) {\n      id\n      photos {\n        id\n        url\n      }\n    }\n  }\n"): (typeof documents)["\n  query searchCoffeeShops($keyword: String!, $offset: Int) {\n    searchCoffeeShops(keyword: $keyword, offset: $offset) {\n      id\n      photos {\n        id\n        url\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query searchCategories($keyword: String!, $offset: Int) {\n    searchCategories(keyword: $keyword, offset: $offset) {\n      id\n      name\n      slug\n      totalShops\n    }\n  }\n"): (typeof documents)["\n  query searchCategories($keyword: String!, $offset: Int) {\n    searchCategories(keyword: $keyword, offset: $offset) {\n      id\n      name\n      slug\n      totalShops\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

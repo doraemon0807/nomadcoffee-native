@@ -36,7 +36,7 @@ const authLink = setContext((_, { headers }) => {
 
 //http link to upload files
 const uploadHttpLink = createUploadLink({
-  uri: "https://solid-months-cover.loca.lt/graphql",
+  uri: "https://cruel-peaches-share.loca.lt/graphql",
 });
 
 //http link to display errors

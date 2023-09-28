@@ -23,8 +23,6 @@ export default function TabsNav() {
 
   const { data } = useUser();
 
-  console.log("User Logged In ? ", isLoggedIn);
-
   return (
     <Tabs.Navigator
       screenOptions={{

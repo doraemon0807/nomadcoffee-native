@@ -12,6 +12,8 @@ import { darkTheme, lightTheme } from "../../styles";
 import styled from "styled-components/native";
 import Login from "../screens/Login";
 import CreateAccount from "../screens/CreateAccount";
+import ShopDetail from "../screens/ShopDetail";
+import CategoryResult from "../screens/CategoryResult";
 
 export type SharedStackParamList = {
   Home: undefined;
@@ -19,6 +21,8 @@ export type SharedStackParamList = {
   Profile: undefined;
   Login: ILoginForm | undefined;
   CreateAccount: undefined;
+  CategoryResult: ICategoryResultProps | undefined;
+  ShopDetail: IShopDetailProps | undefined;
 };
 
 export interface ILoginForm {
@@ -29,6 +33,15 @@ export interface ILoginForm {
 
 interface ISharedStackNavProps {
   screenName: string;
+}
+
+interface ICategoryResultProps {
+  categoryId: number;
+  categoryName: string;
+}
+
+interface IShopDetailProps {
+  shopId: number;
 }
 
 const Logo = styled.Image`
@@ -84,7 +97,15 @@ export default function SharedStackNav({ screenName }: ISharedStackNavProps) {
         <Stack.Screen name="Profile" component={Profile} />
       ) : null}
 
-      <Stack.Screen name="CreateAccount" component={CreateAccount} />
+      <Stack.Screen
+        name="CreateAccount"
+        component={CreateAccount}
+        options={{
+          title: "Create Account",
+        }}
+      />
+      <Stack.Screen name="CategoryResult" component={CategoryResult} />
+      <Stack.Screen name="ShopDetail" component={ShopDetail} />
     </Stack.Navigator>
   );
 }
