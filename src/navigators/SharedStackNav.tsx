@@ -14,6 +14,8 @@ import Login from "../screens/Login";
 import CreateAccount from "../screens/CreateAccount";
 import ShopDetail from "../screens/ShopDetail";
 import CategoryResult from "../screens/CategoryResult";
+import UserDetail from "../screens/UserDetail";
+import EditProfile from "../screens/EditProfile";
 
 export type SharedStackParamList = {
   Home: undefined;
@@ -23,6 +25,8 @@ export type SharedStackParamList = {
   CreateAccount: undefined;
   CategoryResult: ICategoryResultProps | undefined;
   ShopDetail: IShopDetailProps | undefined;
+  UserDetail: IUserDetailProps | undefined;
+  EditProfile: IEditProfileProps | undefined;
 };
 
 export interface ILoginForm {
@@ -42,6 +46,19 @@ interface ICategoryResultProps {
 
 interface IShopDetailProps {
   shopId: number;
+  shopName: string;
+}
+interface IUserDetailProps {
+  userId: number;
+  username: string;
+}
+interface IEditProfileProps {
+  userId: number;
+  username: string;
+  email: string;
+  name: string;
+  location: string;
+  githubUsername: string;
 }
 
 const Logo = styled.Image`
@@ -106,6 +123,14 @@ export default function SharedStackNav({ screenName }: ISharedStackNavProps) {
       />
       <Stack.Screen name="CategoryResult" component={CategoryResult} />
       <Stack.Screen name="ShopDetail" component={ShopDetail} />
+      <Stack.Screen name="UserDetail" component={UserDetail} />
+      <Stack.Screen
+        name="EditProfile"
+        component={EditProfile}
+        options={{
+          title: "Edit Profile",
+        }}
+      />
     </Stack.Navigator>
   );
 }

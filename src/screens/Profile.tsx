@@ -1,16 +1,37 @@
-import styled from "styled-components/native";
-import Button from "../components/shared/Button";
-import { logUserOut } from "../../apollo";
+import React, { useEffect } from "react";
+import UserDetail from "./UserDetail";
+import {
+  NativeStackNavigationProp,
+  NativeStackScreenProps,
+} from "@react-navigation/native-stack";
+import { SharedStackParamList } from "../navigators/SharedStackNav";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
+import useUser from "../hook/useUser";
 
-const Container = styled.View``;
+type Props = NativeStackScreenProps<SharedStackParamList, "Profile">;
 
-const Text = styled.Text``;
+export default function Profile({ navigation }: Props) {
+  const userDetailNavigation: NativeStackNavigationProp<
+    SharedStackParamList,
+    "UserDetail",
+    undefined
+  > = useNavigation();
+  const userDetailRoute: RouteProp<SharedStackParamList, "UserDetail"> =
+    useRoute();
 
-export default function Profile() {
+  const { data } = useUser();
+
+  useEffect(() => {
+    navigation.setOptions({
+      title: data?.me.profile?.username,
+    });
+  }, []);
+
   return (
-    <Container>
-      <Text>Profile</Text>
-      <Button text="Log Out" onPress={() => logUserOut()} />
-    </Container>
+    <UserDetail
+      navigation={userDetailNavigation}
+      route={userDetailRoute}
+      isMe={true}
+    />
   );
 }

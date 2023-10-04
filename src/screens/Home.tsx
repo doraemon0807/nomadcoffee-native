@@ -6,10 +6,6 @@ import { FlatList } from "react-native";
 import ShopItem from "../components/shop/ShopPost";
 import { graphql } from "../gql";
 
-const Container = styled.View``;
-
-const Text = styled.Text``;
-
 const SEE_COFFEE_SHOPS_QUERY = graphql(`
   query seeCoffeeShops($offset: Int) {
     seeCoffeeShops(offset: $offset) {

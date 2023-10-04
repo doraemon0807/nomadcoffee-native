@@ -7,12 +7,14 @@ import TabIcon from "../components/nav/TabIcon";
 import useUser from "../hook/useUser";
 import Avatar from "../components/shared/Avatar";
 import SharedStackNav from "./SharedStackNav";
+import { View } from "react-native";
 
 export type TabsParamList = {
   TabHome: undefined;
   TabSearch: undefined;
   TabLogin: undefined;
   TabProfile: undefined;
+  TabCamera: undefined;
 };
 
 const Tabs = createBottomTabNavigator<TabsParamList>();
@@ -60,7 +62,25 @@ export default function TabsNav() {
       >
         {() => <SharedStackNav screenName="Search" />}
       </Tabs.Screen>
-
+      {isLoggedIn ? (
+        <Tabs.Screen
+          name="TabCamera"
+          component={View}
+          listeners={({ navigation }) => {
+            return {
+              tabPress: (e) => {
+                e.preventDefault();
+                navigation.navigate("Upload");
+              },
+            };
+          }}
+          options={{
+            tabBarIcon: ({ focused, color }) => (
+              <TabIcon iconName="camera" focused={focused} color={color} />
+            ),
+          }}
+        />
+      ) : null}
       {isLoggedIn ? (
         <Tabs.Screen
           name="TabProfile"

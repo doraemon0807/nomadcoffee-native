@@ -25,7 +25,7 @@ interface IShopRectProps {
   file: string;
   navigation: NativeStackNavigationProp<
     SharedStackParamList,
-    "Search",
+    "Search" | "CategoryResult",
     undefined
   >;
   numColumns: number;

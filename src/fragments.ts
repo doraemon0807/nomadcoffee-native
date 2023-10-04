@@ -24,3 +24,23 @@ export const PHOTO_FRAGMENT = graphql(`
     url
   }
 `);
+
+export const SHOP_FRAGMENT = graphql(`
+  fragment ShopFragment on CoffeeShop {
+    id
+    name
+    longitude
+    latitude
+    description
+    isMine
+    user {
+      ...UserFragment
+    }
+    photos {
+      ...PhotoFragment
+    }
+    categories {
+      ...CategoryFragment
+    }
+  }
+`);

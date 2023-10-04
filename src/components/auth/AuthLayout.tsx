@@ -41,12 +41,14 @@ interface IProps {
   children: React.ReactNode;
   errorMessage?: string;
   stateMessage?: string;
+  hideLogo?: boolean;
 }
 
 export default function AuthLayout({
   children,
   errorMessage,
   stateMessage,
+  hideLogo,
 }: IProps) {
   const darkMode = useReactiveVar(darkModeVar);
 
@@ -60,14 +62,16 @@ export default function AuthLayout({
           behavior="position"
           keyboardVerticalOffset={Platform.OS === "ios" ? 50 : 100}
         >
-          <Logo
-            resizeMode="contain"
-            source={
-              darkMode
-                ? require("../../../assets/logo_dark.png")
-                : require("../../../assets/logo_light.png")
-            }
-          />
+          {!hideLogo ? (
+            <Logo
+              resizeMode="contain"
+              source={
+                darkMode
+                  ? require("../../../assets/logo_dark.png")
+                  : require("../../../assets/logo_light.png")
+              }
+            />
+          ) : null}
           {errorMessage ? (
             <Message>
               <ErrorMessage>{errorMessage}</ErrorMessage>

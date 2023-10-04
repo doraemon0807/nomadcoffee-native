@@ -19,6 +19,8 @@ const CategoryContainer: React.FC<TouchablePropsWithWidth> = styled.TouchableOpa
     props.width / props.numColumns}px;
   padding: 4px;
   margin-bottom: 20px;
+  justify-content: center;
+  align-items: center;
 `;
 
 const CategoryWrapper = styled.View`
@@ -27,6 +29,8 @@ const CategoryWrapper = styled.View`
   padding: 10px;
   background-color: ${(props: IThemeProps) => props.theme.grayLight};
   flex: 1;
+  justify-content: center;
+  align-items: center;
 `;
 
 const CategoryName = styled.Text`

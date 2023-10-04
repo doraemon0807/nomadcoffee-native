@@ -4,8 +4,13 @@ import styled from "styled-components/native";
 import { IThemeProps } from "../../../styles";
 
 import Avatar from "../shared/Avatar";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { SharedStackParamList } from "../../navigators/SharedStackNav";
+import CategoryItem from "../shared/CategoryItem";
 
 const Container = styled.View``;
+
 const Header = styled.View`
   padding: 10px;
   flex-direction: row;
@@ -32,6 +37,8 @@ const Username = styled.Text`
   margin-left: 10px;
 `;
 
+const FileContainer = styled.TouchableOpacity``;
+
 const File = styled.Image``;
 
 const ExtraContainer = styled.View`
@@ -44,18 +51,6 @@ const Categories = styled.View`
   flex-wrap: wrap;
   line-height: 30px;
   gap: 10px;
-`;
-
-const Category = styled.TouchableOpacity`
-  padding: 6px;
-  border-radius: 100px;
-  background-color: ${(props: IThemeProps) => props.theme.grayLight};
-`;
-
-const CategoryText = styled.Text`
-  color: ${(props: IThemeProps) => props.theme.fontColor};
-  margin-left: 5px;
-  flex-shrink: 1;
 `;
 
 interface IShopPostProps {
@@ -96,6 +91,12 @@ export default function ShopItem({
   photos,
   categories,
 }: IShopPostProps) {
+  const navigation: NativeStackNavigationProp<
+    SharedStackParamList,
+    "Search",
+    undefined
+  > = useNavigation();
+
   //Find width and height of the screen
   const { width: sWidth, height: sHeight } = useWindowDimensions();
 
@@ -113,22 +114,36 @@ export default function ShopItem({
     <Container>
       <Header>
         <Title>{name}</Title>
-        <UserInfo>
+        <UserInfo
+          onPress={() =>
+            navigation.navigate("UserDetail", {
+              userId: user?.id!,
+              username: user?.username!,
+            })
+          }
+        >
           <Avatar avatarUrl={user?.avatarURL} size="small" />
           <Username>{user?.username}</Username>
         </UserInfo>
       </Header>
-      <File
-        resizeMode="contain"
-        source={{ uri: photos?.[0]?.url }}
-        style={{ width: sWidth, height: imageHeight }}
-      />
+      <FileContainer
+        onPress={() =>
+          navigation.navigate("ShopDetail", {
+            shopId: id,
+            shopName: name,
+          })
+        }
+      >
+        <File
+          resizeMode="contain"
+          source={{ uri: photos?.[0]?.url }}
+          style={{ width: sWidth, height: imageHeight }}
+        />
+      </FileContainer>
       <ExtraContainer>
         <Categories>
           {categories?.map((category) => (
-            <Category key={category?.id}>
-              <CategoryText>{category?.name}</CategoryText>
-            </Category>
+            <CategoryItem key={category?.id} category={category} />
           ))}
         </Categories>
       </ExtraContainer>
